@@ -46,3 +46,28 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Cache
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: ~/.npm
+          key: npm ${{ hashFiles('**/package-lock.json') }}
+
+      - run: npm ci
+      - run: npm test -- --coverage
+
+      - uses: actions/upload-artifact@v3
+        name: Archive coverage report
+        with:
+          name: coverage-report
+          path: coverage

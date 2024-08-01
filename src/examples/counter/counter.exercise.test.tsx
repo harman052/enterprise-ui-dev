@@ -28,7 +28,7 @@ test('it should render the component with an initial count', () => {
 
 });
 
-test.only(
+test(
   'it should reset the count when the "Reset" button is pressed',
   async () => {
     const {user} = render(<Counter/>)
